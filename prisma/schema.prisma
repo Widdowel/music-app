@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Track {
+  id        String   @id @default(cuid())
+  title     String
+  artist    String
+  filename  String
+  fileUrl   String
+  fileKey   String
+  createdAt DateTime @default(now())
+}
