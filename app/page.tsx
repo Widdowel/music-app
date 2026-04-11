@@ -1,5 +1,5 @@
 import { prisma } from "./lib/prisma";
-import TrackCard from "./components/TrackCard";
+import TrackList from "./components/TrackList";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -27,17 +27,12 @@ export default async function Home() {
           <p className="text-sm mt-1">Commence par uploader ta musique !</p>
         </div>
       ) : (
-        <div className="grid gap-4">
-          {tracks.map((track) => (
-            <TrackCard
-              key={track.id}
-              track={{
-                ...track,
-                createdAt: track.createdAt.toISOString(),
-              }}
-            />
-          ))}
-        </div>
+        <TrackList
+          tracks={tracks.map((track) => ({
+            ...track,
+            createdAt: track.createdAt.toISOString(),
+          }))}
+        />
       )}
     </main>
   );
