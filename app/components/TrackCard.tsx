@@ -17,7 +17,7 @@ export default function TrackCard({ track }: { track: Track }) {
         <p className="text-sm text-gray-500">{track.artist}</p>
       </div>
 
-      <audio controls className="w-full h-10" src={track.fileUrl} />
+      <audio controls loop className="w-full h-10" src={track.fileUrl} />
 
       <a
         href={track.fileUrl}
