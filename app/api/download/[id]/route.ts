@@ -12,6 +12,15 @@ export async function GET(
     return NextResponse.json({ error: "Track introuvable" }, { status: 404 });
   }
 
-  // Redirect to the Uploadthing file URL for download
-  return NextResponse.redirect(track.fileUrl);
+  // Fetch the file from Uploadthing and stream it back with download headers
+  const fileResponse = await fetch(track.fileUrl);
+  const fileBuffer = await fileResponse.arrayBuffer();
+
+  return new NextResponse(fileBuffer, {
+    headers: {
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": `attachment; filename="${track.filename}"`,
+      "Content-Length": fileBuffer.byteLength.toString(),
+    },
+  });
 }

@@ -71,8 +71,7 @@ export default function TrackList({ tracks }: { tracks: Track[] }) {
           />
 
           <a
-            href={track.fileUrl}
-            download={track.filename}
+            href={`/api/download/${track.id}`}
             className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-gray-800 transition-colors"
           >
             <svg
