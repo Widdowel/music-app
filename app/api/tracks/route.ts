@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../lib/prisma";
+import { broadcastNotification } from "../../lib/push";
 
 export async function GET() {
   const tracks = await prisma.track.findMany({
@@ -19,6 +20,13 @@ export async function POST(request: NextRequest) {
   const track = await prisma.track.create({
     data: { title, artist, filename, fileUrl, fileKey },
   });
+
+  broadcastNotification({
+    title: "Nouvelle musique !",
+    body: `${track.artist} — ${track.title}`,
+    url: "/",
+    icon: "/icon.svg",
+  }).catch((err) => console.error("broadcastNotification failed:", err));
 
   return NextResponse.json(track, { status: 201 });
 }
