@@ -3,7 +3,8 @@ import { prisma } from "./prisma";
 
 const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 const privateKey = process.env.VAPID_PRIVATE_KEY;
-const contact = process.env.VAPID_CONTACT_EMAIL || "mailto:admin@example.com";
+const rawContact = process.env.VAPID_CONTACT_EMAIL || "mailto:admin@example.com";
+const contact = /^(mailto:|https?:)/i.test(rawContact) ? rawContact : `mailto:${rawContact}`;
 
 if (publicKey && privateKey) {
   webpush.setVapidDetails(contact, publicKey, privateKey);
