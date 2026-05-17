@@ -1,5 +1,6 @@
 import { prisma } from "./lib/prisma";
 import TrackList from "./components/TrackList";
+import PushSubscribe from "./components/PushSubscribe";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +12,7 @@ export default async function Home() {
 
   return (
     <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-12">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-2">
         <h1 className="text-3xl font-bold text-gray-900">Ma Musique</h1>
         <Link
           href="/upload"
@@ -19,6 +20,9 @@ export default async function Home() {
         >
           + Ajouter un track
         </Link>
+      </div>
+      <div className="mb-8">
+        <PushSubscribe />
       </div>
 
       {tracks.length === 0 ? (
